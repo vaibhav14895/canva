@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="chart" style="height: 500px; width:1000px">
+    <canvas id="canva" height="200px" width="200px" ></canvas>
+    </div>
+    
+
+   <script>
+    var today = new Date();
+    var day=today.getDate();
+    var lineChartData = {
+        labels: {{ dates|safe }},
+        datasets: [{
+            label:"DSA",
+            backgroundColor: "rgba(220,220,220,0.5)",
+            borderColor: "rgba(220,220,220,1)",
+            pointBackgroundColor: "rgba(220,220,220,1)",
+            pointBorderColor: "#fff",
+            data: {{ DSA|safe }},
+            
+        },
+        {
+            label: "PROJECT",
+            backgroundColor: "rgba(151,187,205,0.5)",
+            borderColor: "rgba(151,187,205,1)",
+            pointBackgroundColor: "rgba(151,187,205,1)",
+            pointBorderColor: "#fff",
+            data: {{project|safe}}
+
+        }
+        ]
+    };
+
+    var ctx = document.getElementById("canva").getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: lineChartData,
+         options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    min: 0,
+                    max:6,
+                    beginAtZero: false
+                }
+            }
+    }});
+</script>
+
+
+</body>
+</html>
